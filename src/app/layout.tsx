@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 
 // Metadata (server-only)
 export const metadata: Metadata = {
-  title: "AMMOHPHARM PHARMACEUTICALS",
-  description: "AMMOPharm Drug Store - Your trusted pharmacy partner.",
+  title: "AlphaPrestige  Chemists and Hospital",
+  description: "AlphaPrestige Drug Store - Your trusted pharmacy partner.",
 };
 
 export default function RootLayout({

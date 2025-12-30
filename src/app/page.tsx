@@ -36,20 +36,21 @@ export default function Home() {
         <DealsOfTheDay/>
       </section>
 
-            {/* TodayDeals*/}
-      <section
-        aria-label="PopularProducts"
-        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
-      >
-        <TodayDeals/>
-      </section>
-
            {/* PopularProducts*/}
       <section
         aria-label="PopularProducts"
         className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
       >
         <PopularProducts/>
+      </section>
+
+      
+            {/* TodayDeals*/}
+      <section
+        aria-label="PopularProducts"
+        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
+      >
+        <TodayDeals/>
       </section>
 
         {/*BoxesGrid */}

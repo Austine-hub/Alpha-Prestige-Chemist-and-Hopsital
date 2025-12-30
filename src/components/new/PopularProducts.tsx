@@ -160,7 +160,7 @@ const PopularProducts = () => {
   return (
     <section className={styles.container}>
       <header className={styles.header}>
-        <h2>New Arrivals at OBAT</h2>
+        <h2>New Arrivals at Alpha Prestige</h2>
         <button
           className={styles.viewAll}
           onClick={() => router.push("/more/new")}
