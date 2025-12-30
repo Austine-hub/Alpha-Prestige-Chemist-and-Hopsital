@@ -1,26 +1,209 @@
-@import "tailwindcss";
+/* ================================================================
+   AMMOHPHARM PHARMACEUTICALS – CLEAN & COMPACT GLOBAL STYLES
+================================================================ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --medical-blue: #0066cc;
+  --medical-blue-dark: #004d99;
+  --medical-teal: #00a6a6;
+  --medical-green: #10b981;
+  --medical-red: #dc2626;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+
+  /* Semantic */
+  --text-primary: var(--gray-900);
+  --text-secondary: #475569;
+  --bg-primary: #ffffff;
+  --bg-secondary: var(--gray-50);
+  --border-light: var(--gray-200);
+
+  /* Layout heights */
+  --topbar-height: 32px;
+  --header-height: 4px;
+
+  /* Compact spacing scale (tight but readable) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --radius-md: 0.375rem;
+  --transition-base: 200ms ease-in-out;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ================================================================
+   APP MAIN OFFSET (HEADER → CONTENT SEPARATION)
+================================================================ */
+
+.app-main {
+  /* Push content BELOW Topbar + Header + Navbar */
+  margin-top: calc(
+    var(--topbar-height) +
+    var(--header-height) +
+    var(--space-4) /* visual breathing space */
+  );
+
+  padding-top: var(--space-4); /* clean separation */
+}
+ 
+/* ================================================================
+   RESET
+================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.45; /* tighter vertical rhythm */
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   MAIN LAYOUT (NO EXCESS SPACE)
+================================================================ */
+
+main {
+  min-height: 80vh;
+       /* small breathing room */
+  padding-bottom: var(--space-8);   /* reduced from space-12 */
+}
+
+/* ================================================================
+   SECTION SPACING (SINGLE SOURCE OF TRUTH)
+================================================================ */
+
+/* Optional: even tighter sections */
+section.compact {
+  padding-block: var(--space-4);
+}
+
+section.compact {
+  padding-block: var(--space-3);
+}
+
+
+/* ================================================================
+   CONTAINER
+================================================================ */
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+/* ================================================================
+   TYPOGRAPHY – TIGHT & CONSISTENT
+================================================================ */
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-2); /* ⬅ reduced */
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(1.75rem, 4vw, 2.4rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+h3 { font-size: 1.25rem; }
+
+p {
+  margin-bottom: var(--space-2); /* ⬅ reduced */
+  color: var(--text-secondary);
+}
+
+p:last-child {
+  margin-bottom: 0; /* prevents stacking gaps */
+}
+
+a {
+  color: var(--medical-blue);
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+/* ================================================================
+   UTILITIES (MINIMAL & SAFE)
+================================================================ */
+
+.flex { display: flex; }
+.grid { display: grid; }
+.hidden { display: none; }
+
+.text-center { text-align: center; }
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+
+.m-0 { margin: 0 !important; }
+.p-0 { padding: 0 !important; }
+
+/* ================================================================
+   ACCESSIBILITY
+================================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ================================================================
+   DARK MODE
+================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #020617;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-light: #334155;
+  }
 }

@@ -1,0 +1,258 @@
+/*src/components/today/TodayDeals.module.css*/
+
+.dealsSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid #0071dc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+}
+
+.cardHeader {
+  margin-bottom: 1.5rem;
+}
+
+.cardTitle {
+  color: #030118;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.cardSubtitle {
+  color: #666666;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageWrapper {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.productDetails {
+  width: 100%;
+  text-align: center;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  font-size: 1rem;
+}
+
+.starFilled {
+  color: #ffc107;
+}
+
+.starHalf {
+  color: #ffc107;
+  opacity: 0.6;
+}
+
+.starEmpty {
+  color: #e0e0e0;
+}
+
+.reviewCount {
+  color: #666666;
+  font-size: 0.875rem;
+}
+
+.productName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.4;
+  margin: 0 0 1rem 0;
+  min-height: 2.8rem;
+}
+
+.price {
+  color: #ffa500;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.viewButton {
+  background-color: #ffffff;
+  color: #4a1ee9;
+  border: 2px solid #4a1ee9;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 120px;
+}
+
+.viewButton:hover {
+  background-color: #4a1ee9;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.addToCartButton {
+  background-color: #fce4ec;
+  color: #4a1ee9;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 140px;
+}
+
+.addToCartButton:hover {
+  background-color: #f8bbd0;
+  transform: translateY(-2px);
+}
+
+.addToCartButton:active,
+.viewButton:active {
+  transform: translateY(0);
+}
+
+.cashbackBanner {
+  background-color: #faf5f5;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.cashbackContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cashbackText {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  flex: 1;
+  min-width: 250px;
+}
+
+.cashbackLabel {
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+}
+
+.cashbackDescription {
+  color: #666666;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.discoverButton {
+  background-color: #ffffff;
+  color: #333333;
+  border: 2px solid #333333;
+  border-radius: 6px;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.discoverButton:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .viewButton,
+  .addToCartButton {
+    max-width: 100%;
+  }
+
+  .cashbackContent {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .cashbackText {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .discoverButton {
+    width: 100%;
+  }
+}

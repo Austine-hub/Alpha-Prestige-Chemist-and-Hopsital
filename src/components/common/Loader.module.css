@@ -1,0 +1,172 @@
+/* Root container — centers loader vertically & horizontally */
+.loaderContainer {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Loader inner content */
+.loaderContent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Red rotating ring */
+.ring {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border-top: 3px solid #e50914; /* Netflix-style red */
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 3px solid transparent;
+  box-shadow: 0 0 6px rgba(229, 9, 20, 0.3);
+  animation: rotate 1.5s linear infinite;
+}
+
+/* Inner shadow halo to add depth */
+.ringInner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo wrapper */
+.logoWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Central logo */
+.logo {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 50%;
+  z-index: 2;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+/* Loading text */
+.loadingText {
+  margin-top: 1rem;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  color: #444;
+  letter-spacing: 0.6px;
+  text-align: center;
+  animation: fadeInOut 1.5s ease-in-out infinite;
+}
+
+/* ==========================
+   Animations
+   ========================== */
+
+/* Continuous ring rotation */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulsing text animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* ==========================
+   Responsiveness
+   ========================== */
+
+@media (max-width: 768px) {
+  .ring {
+    width: 80px;
+    height: 80px;
+    border-top-width: 2.5px;
+  }
+
+  .logo {
+    width: 55px;
+  }
+
+  .loadingText {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ring {
+    width: 65px;
+    height: 65px;
+  }
+
+  .logo {
+    width: 45px;
+  }
+
+  .loadingText {
+    font-size: 0.8rem;
+  }
+}
+
+/* ==========================
+   Reduced Motion Preference
+   ========================== */
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation: none;
+  }
+
+  .loadingText {
+    animation: none;
+  }
+}
+
+.fullscreen {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.inline {
+  position: relative;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noBackdrop {
+  background: transparent !important;
+  box-shadow: none;
+}
