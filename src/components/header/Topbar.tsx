@@ -1,7 +1,9 @@
 // src/components/header/Topbar.tsx
+
+// src/components/header/Topbar.tsx
 'use client';
 
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback, memo, useRef } from 'react';
 import {
   FaFacebookF,
   FaTwitter,
@@ -23,6 +25,7 @@ interface TopbarProps {
 
 const ROTATION_INTERVAL = 4000;
 const TOPBAR_HEIGHT = 38;
+const SCROLL_THRESHOLD = 10;
 
 const PROMO_MESSAGES: PromoMessage[] = [
   { id: 1, text: '🎉 Flash Sale! Get 50% OFF on all products today only!' },
@@ -41,6 +44,9 @@ const SOCIAL_LINKS = [
 function Topbar({ onHeightChange, isMenuOpen }: TopbarProps) {
   const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [isScrollHidden, setIsScrollHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
   // Auto-rotate promo messages
   useEffect(() => {
@@ -53,10 +59,41 @@ function Topbar({ onHeightChange, isMenuOpen }: TopbarProps) {
     return () => clearInterval(interval);
   }, [isVisible]);
 
+  // Handle scroll behavior on desktop
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ticking.current) return;
+
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        
+        // Only apply scroll hide on desktop (width > 768px)
+        if (window.innerWidth > 768) {
+          if (currentScrollY > lastScrollY.current && currentScrollY > SCROLL_THRESHOLD) {
+            // Scrolling down
+            setIsScrollHidden(true);
+          } else if (currentScrollY < lastScrollY.current) {
+            // Scrolling up
+            setIsScrollHidden(false);
+          }
+        } else {
+          // On mobile, always show if visible
+          setIsScrollHidden(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Handle close with smooth transition
   const handleClose = useCallback(() => {
     setIsVisible(false);
-    // Wait for CSS animation to complete before notifying parent
     setTimeout(() => {
       onHeightChange(0);
     }, 300);
@@ -71,8 +108,8 @@ function Topbar({ onHeightChange, isMenuOpen }: TopbarProps) {
 
   // Update height on mount and visibility change
   useEffect(() => {
-    onHeightChange(isVisible ? TOPBAR_HEIGHT : 0);
-  }, [isVisible, onHeightChange]);
+    onHeightChange(isVisible && !isScrollHidden ? TOPBAR_HEIGHT : 0);
+  }, [isVisible, isScrollHidden, onHeightChange]);
 
   const handleSocialClick = useCallback((url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -81,7 +118,7 @@ function Topbar({ onHeightChange, isMenuOpen }: TopbarProps) {
   if (!isVisible) return null;
 
   return (
-    <div className={styles.topbarWrapper}>
+    <div className={`${styles.topbarWrapper} ${isScrollHidden ? styles.scrollHidden : ''}`}>
       <div className={styles.topbar}>
         <div className={styles.container}>
           {/* Promo Messages */}

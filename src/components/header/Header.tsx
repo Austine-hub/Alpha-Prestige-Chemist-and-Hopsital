@@ -90,23 +90,31 @@ export default function Header({ onMenuToggle, topBarHeight }: HeaderProps) {
           <Menu size={24} strokeWidth={2} />
         </button>
 
-        <Link href="/" className={styles.logo} aria-label="AlphaPrestige Home">
-          <div className={styles.logoIcon}>
-            <Image
-              src="/logo/logo.jpg"
-              alt=""
-              width={48}
-              height={40}
-              priority
-            />
-          </div>
-          <div className={styles.logoContent}>
-            <span className={styles.logoText}>
-              AlphaPrestige<sup>®</sup>
-            </span>
-            <span className={styles.brandTagline}>Caring Beyond Prescriptions</span>
-          </div>
-        </Link>
+            <Link href="/" className={styles.logo} aria-label="AlphaPrestige Home">
+              <div className={styles.logoIcon}>
+                <div className={styles.heart}>
+                  <Image
+                    src="/logo/logo.jpg"
+                    alt="AlphaPrestige logo"
+                    width={56}
+                    height={56}
+                    priority
+                    className={styles.logoImage}
+                  />
+                  <span className={styles.ecg} aria-hidden="true" />
+                </div>
+              </div>
+
+              <div className={styles.logoContent}>
+                <span className={styles.logoText}>
+                  AlphaPrestige<sup>®</sup>
+                </span>
+                <span className={styles.brandTagline}>
+                  Caring Beyond Prescriptions
+                </span>
+              </div>
+            </Link>
+
 
         <form 
           className={styles.searchWrapper}

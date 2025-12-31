@@ -1,61 +1,100 @@
 /*src/components/today/TodayDeals.module.css*/
 
+/* Healthcare-focused color palette */
+:root {
+  --primary-blue: #0066cc;
+  --primary-blue-dark: #004c99;
+  --primary-blue-light: #e6f2ff;
+  --success-green: #00a86b;
+  --success-green-light: #e6f7f0;
+  --accent-teal: #008b8b;
+  --neutral-900: #1a1a1a;
+  --neutral-700: #4a4a4a;
+  --neutral-500: #6b6b6b;
+  --neutral-300: #d1d1d1;
+  --neutral-100: #f5f5f5;
+  --white: #ffffff;
+  --warning-orange: #ff8c00;
+  --rating-gold: #ffa500;
+}
+
 .dealsSection {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 3rem 1.5rem;
+  background-color: var(--neutral-100);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.mainTitle {
+  color: var(--neutral-900);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.5px;
+}
+
+.mainSubtitle {
+  color: var(--neutral-500);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
 }
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .card {
-  background: #ffffff;
-  border: 2px solid #0071dc;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: box-shadow 0.3s ease;
+  background: var(--white);
+  border: 1px solid var(--neutral-300);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.12);
+  border-color: var(--primary-blue);
+  transform: translateY(-4px);
 }
 
-.cardHeader {
-  margin-bottom: 1.5rem;
-}
-
-.cardTitle {
-  color: #030118;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-}
-
-.cardSubtitle {
-  color: #666666;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.productInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, var(--success-green), var(--accent-teal));
+  color: var(--white);
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 168, 107, 0.25);
 }
 
 .imageWrapper {
-  width: 140px;
-  height: 140px;
-  margin-bottom: 1rem;
+  width: 100%;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1.5rem;
+  background-color: var(--neutral-100);
+  border-radius: 12px;
+  padding: 1rem;
 }
 
 .productImage {
@@ -64,17 +103,17 @@
   object-fit: contain;
 }
 
-.productDetails {
-  width: 100%;
-  text-align: center;
+.productContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .ratingContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .stars {
@@ -84,53 +123,73 @@
 }
 
 .starFilled {
-  color: #ffc107;
+  color: var(--rating-gold);
 }
 
 .starHalf {
-  color: #ffc107;
-  opacity: 0.6;
+  color: var(--rating-gold);
+  opacity: 0.5;
 }
 
 .starEmpty {
-  color: #e0e0e0;
+  color: var(--neutral-300);
 }
 
 .reviewCount {
-  color: #666666;
+  color: var(--neutral-500);
   font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .productName {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #333333;
-  line-height: 1.4;
-  margin: 0 0 1rem 0;
-  min-height: 2.8rem;
+  color: var(--neutral-900);
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
+  min-height: 3.375rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .price {
-  color: #ffa500;
-  font-size: 1.5rem;
+  color: var(--primary-blue);
+  font-size: 1.75rem;
   font-weight: 700;
-  margin: 0 0 1rem 0;
+  letter-spacing: -0.5px;
+}
+
+.priceLabel {
+  color: var(--success-green);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .buttonGroup {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
-  justify-content: center;
-  width: 100%;
+  margin-top: auto;
 }
 
 .viewButton {
-  background-color: #ffffff;
-  color: #4a1ee9;
-  border: 2px solid #4a1ee9;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -138,33 +197,33 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  max-width: 120px;
+  text-align: center;
 }
 
 .viewButton:hover {
-  background-color: #4a1ee9;
-  color: #ffffff;
+  background-color: var(--primary-blue);
+  color: var(--white);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
 }
 
 .addToCartButton {
-  background-color: #fce4ec;
-  color: #4a1ee9;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: 2px solid var(--primary-blue);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex: 1;
-  max-width: 140px;
 }
 
 .addToCartButton:hover {
-  background-color: #f8bbd0;
+  background-color: var(--primary-blue-dark);
+  border-color: var(--primary-blue-dark);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 76, 153, 0.3);
 }
 
 .addToCartButton:active,
@@ -173,86 +232,129 @@
 }
 
 .cashbackBanner {
-  background-color: #faf5f5;
-  border-radius: 8px;
-  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary-blue-light), var(--success-green-light));
+  border: 1px solid var(--primary-blue);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
+}
+
+.cashbackIcon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background-color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
 }
 
 .cashbackContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.cashbackText {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 0;
   flex: 1;
-  min-width: 250px;
 }
 
-.cashbackLabel {
+.cashbackTitle {
+  color: var(--neutral-900);
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #333333;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.875rem;
+  margin: 0 0 0.5rem 0;
 }
 
 .cashbackDescription {
-  color: #666666;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  color: var(--neutral-700);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cashbackDescription strong {
+  color: var(--primary-blue);
+  font-weight: 600;
 }
 
 .discoverButton {
-  background-color: #ffffff;
-  color: #333333;
-  border: 2px solid #333333;
-  border-radius: 6px;
-  padding: 0.625rem 1.5rem;
-  font-size: 0.875rem;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  padding: 0.875rem 2rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .discoverButton:hover {
-  background-color: #333333;
-  color: #ffffff;
+  background-color: var(--primary-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 76, 153, 0.3);
+}
+
+.discoverButton:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
+  .dealsSection {
+    padding: 2rem 1rem;
+  }
+
+  .mainTitle {
+    font-size: 1.5rem;
+  }
+
   .cardsContainer {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .buttonGroup {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
-  .viewButton,
-  .addToCartButton {
-    max-width: 100%;
-  }
-
-  .cashbackContent {
+  .cashbackBanner {
     flex-direction: column;
-    align-items: stretch;
     text-align: center;
+    padding: 1.5rem;
   }
 
-  .cashbackText {
-    flex-direction: column;
-    gap: 0.5rem;
+  .cashbackIcon {
+    width: 48px;
+    height: 48px;
   }
 
   .discoverButton {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .imageWrapper {
+    height: 160px;
+  }
+
+  .productName {
+    font-size: 1rem;
+    min-height: 3rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .cashbackTitle {
+    font-size: 1.125rem;
   }
 }

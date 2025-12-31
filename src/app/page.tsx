@@ -26,7 +26,7 @@ export default function Home() {
       </section>
 
 
-            {/* Hero */}
+            {/* GetStarted */}
       <section aria-labelledby="hero-heading" className="w-full">
         <GetStarted />
       </section>
@@ -34,6 +34,15 @@ export default function Home() {
              {/*DealsOfTheDay */}
       <section aria-labelledby="hero-heading" className="w-full">
         <DealsOfTheDay/>
+      </section>
+
+            
+            {/* TodayDeals*/}
+      <section
+        aria-label="PopularProducts"
+        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
+      >
+        <TodayDeals/>
       </section>
 
            {/* PopularProducts*/}
@@ -44,14 +53,7 @@ export default function Home() {
         <PopularProducts/>
       </section>
 
-      
-            {/* TodayDeals*/}
-      <section
-        aria-label="PopularProducts"
-        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
-      >
-        <TodayDeals/>
-      </section>
+
 
         {/*BoxesGrid */}
       <section aria-labelledby="ProductsGrid" className="w-full">

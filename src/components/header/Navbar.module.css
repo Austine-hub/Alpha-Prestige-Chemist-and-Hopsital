@@ -20,32 +20,40 @@
 }
 
 /* ================================================================
-   Desktop Navigation - Sticky Below Header
+   Desktop Navigation - Auto-hide on Scroll
 ================================================================ */
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: calc(var(--topbar-height) + var(--header-height));
+  left: 0;
+  right: 0;
   width: 100%;
   background: var(--navbar-bg);
   color: var(--navbar-text);
-  z-index: 8000;
+  z-index: 90;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: top 0.3s ease;
+  transform: translateY(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.navbar.hidden {
+  transform: translateY(-100%);
 }
 
 .container {
   max-width: var(--container-xl);
   margin: 0 auto;
-  padding: 0.3rem 1.5rem 1.5rem -.4rem  ;
- }
+  padding: 0 1.5rem;
+}
 
 .mobileHeader {
   display: none;
 }
 
 /* ================================================================
-   Navigation List - Bullet-free & Clean
+   Navigation List
 ================================================================ */
 
 .navList {
@@ -129,10 +137,10 @@
   border-radius: 0 0 8px 8px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   z-index: 100;
-  animation: fadeIn 0.15s ease;
+  animation: fadeSlideDown 0.15s ease;
 }
 
-@keyframes fadeIn {
+@keyframes fadeSlideDown {
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -213,8 +221,26 @@
 }
 
 /* ================================================================
-   Mobile Styles
+   Mobile Overlay
 ================================================================ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 89;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .mobileTitle {
   font-size: 1.125rem;
@@ -239,15 +265,6 @@
   opacity: 0.8;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-  z-index: 89;
-  animation: fadeIn 0.2s ease;
-}
-
 /* ================================================================
    Responsive Design - Mobile & Tablet
 ================================================================ */
@@ -261,12 +278,21 @@
     width: 320px;
     max-width: 85vw;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
   }
 
   .navbar.open {
+    transform: translateX(0);
+  }
+
+  /* Disable auto-hide on mobile */
+  .navbar.hidden {
+    transform: translateX(-100%);
+  }
+
+  .navbar.open.hidden {
     transform: translateX(0);
   }
 
@@ -378,5 +404,21 @@
   .navLink,
   .homeLink {
     padding: 1.25rem 1.25rem;
+  }
+}
+
+/* ================================================================
+   Performance Optimizations
+================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .dropdown,
+  .overlay,
+  .chevron,
+  .btnConsult,
+  .btnPrescription {
+    animation: none;
+    transition: none;
   }
 }

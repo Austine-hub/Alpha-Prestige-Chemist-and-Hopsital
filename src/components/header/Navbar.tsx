@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronDown, X, Home } from 'lucide-react';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
@@ -67,13 +67,45 @@ const NAV_ITEMS: NavItem[] = [
   { label: "My Dashboard", key: "dashboard", path: "/dashboard" },
 ];
 
+const SCROLL_THRESHOLD = 10;
+const HOVER_DELAY = 150;
+
 export default function Navbar({ isOpen, onClose }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
   const navRef = useRef<HTMLDivElement>(null);
-  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
+  // Optimized scroll handler with throttling
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    
+    if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_THRESHOLD) {
+      ticking.current = false;
+      return;
+    }
 
-  // Close dropdown when clicking outside
+    setIsVisible(currentScrollY < lastScrollY.current || currentScrollY < 100);
+    lastScrollY.current = currentScrollY;
+    ticking.current = false;
+  }, []);
+
+  const requestScrollUpdate = useCallback(() => {
+    if (!ticking.current) {
+      window.requestAnimationFrame(handleScroll);
+      ticking.current = true;
+    }
+  }, [handleScroll]);
+
+  // Scroll visibility effect
+  useEffect(() => {
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+    return () => window.removeEventListener('scroll', requestScrollUpdate);
+  }, [requestScrollUpdate]);
+
+  // Close dropdown on outside click
   useEffect(() => {
     if (!activeDropdown) return;
     
@@ -87,49 +119,41 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [activeDropdown]);
 
-  // Manage body scroll lock when mobile menu is open
+  // Body scroll lock for mobile menu
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-      setActiveDropdown(null);
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (!isOpen) setActiveDropdown(null);
     
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
 
-  // Close mobile menu and reset dropdown
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     onClose();
     setActiveDropdown(null);
-  };
+  }, [onClose]);
 
-  // Toggle dropdown for mobile/click interactions
-  const toggleDropdown = (key: string) => {
+  const toggleDropdown = useCallback((key: string) => {
     setActiveDropdown(prev => prev === key ? null : key);
-  };
+  }, []);
 
-  // Desktop hover: open dropdown
-  const handleMouseEnter = (key: string) => {
+  const handleMouseEnter = useCallback((key: string) => {
     if (window.innerWidth >= 1024) {
       if (dropdownTimeoutRef.current) {
         clearTimeout(dropdownTimeoutRef.current);
       }
       setActiveDropdown(key);
     }
-  };
+  }, []);
 
-  // Desktop hover: close dropdown with delay
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     if (window.innerWidth >= 1024) {
       dropdownTimeoutRef.current = setTimeout(() => {
         setActiveDropdown(null);
-      }, 150);
+      }, HOVER_DELAY);
     }
-  };
+  }, []);
 
   return (
     <>
@@ -142,7 +166,7 @@ export default function Navbar({ isOpen, onClose }: NavbarProps) {
       )}
 
       <nav 
-        className={`${styles.navbar} ${isOpen ? styles.open : ''}`} 
+        className={`${styles.navbar} ${isOpen ? styles.open : ''} ${!isVisible ? styles.hidden : ''}`}
         ref={navRef} 
         aria-label="Main navigation"
       >

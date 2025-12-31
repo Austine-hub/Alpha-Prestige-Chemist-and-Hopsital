@@ -576,7 +576,7 @@
 @media (prefers-reduced-motion: reduce) {
 :global(*),
  :global(*),::before,
- :global(*)::after {
+ :global(*),::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -618,4 +618,75 @@
     --border-gray: #4b5563;
     --border-gray-dark: #6b7280;
   }
+}
+
+
+/* ================================================================
+   Medical Heart Logo
+================================================================ */
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 8px rgba(225, 29, 72, 0.2));
+}
+
+.heart::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+  clip-path: path('M24,42 C24,42 6,30 6,18 C6,12 10,8 15,8 C18,8 21,9.5 24,13 C27,9.5 30,8 33,8 C38,8 42,12 42,18 C42,30 24,42 24,42 Z');
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .heart::before {
+  transform: scale(1.05);
+}
+
+.logoImage {
+  position: relative;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: white;
+  padding: 2px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.ecg {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  height: 1.5px;
+  background: white;
+  opacity: 0;
+  z-index: 3;
+  clip-path: polygon(
+    0% 50%, 15% 50%, 18% 20%, 21% 80%, 24% 50%, 
+    30% 50%, 33% 30%, 36% 70%, 39% 50%, 100% 50%
+  );
+}
+
+@keyframes ecgPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.9; }
+}
+
+.logo:hover .ecg {
+  animation: ecgPulse 2s ease-in-out infinite;
 }

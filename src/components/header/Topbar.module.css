@@ -1,5 +1,7 @@
 /* src/components/header/Topbar.module.css */
 
+/* src/components/header/Topbar.module.css */
+
 /* ==========================================================================
    TOPBAR WRAPPER - Fixed positioning at the very top
    ========================================================================== */
@@ -14,6 +16,15 @@
   color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   animation: slideInDown 0.3s ease-out;
+  transform: translateY(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scroll hidden state - only on desktop */
+@media (min-width: 769px) {
+  .topbarWrapper.scrollHidden {
+    transform: translateY(-100%);
+  }
 }
 
 @keyframes slideInDown {
@@ -78,6 +89,7 @@
   transform: translateY(10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
+  color: #F1F5F9;
 }
 
 .promoText.active {
@@ -294,6 +306,7 @@
 @media (prefers-reduced-motion: reduce) {
   .topbarWrapper {
     animation: none;
+    transition: none;
   }
 
   .promoText,
@@ -339,3 +352,4 @@
     background: rgba(255, 255, 255, 0.25);
   }
 }
+
